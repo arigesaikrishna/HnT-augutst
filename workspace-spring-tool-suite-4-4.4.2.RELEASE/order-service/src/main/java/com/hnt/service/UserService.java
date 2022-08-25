@@ -11,7 +11,7 @@ public class UserService {
 	@Autowired
 	UserService repository;
 	public void save(User user) {
-		repository.save(user);;
+		repository.save(user);
 		
 	}
 }
