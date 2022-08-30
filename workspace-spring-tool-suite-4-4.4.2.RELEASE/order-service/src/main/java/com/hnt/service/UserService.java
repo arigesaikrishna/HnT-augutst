@@ -23,6 +23,10 @@ public class UserService {
 		 return repository.findAll();
 
 }
+	private Iterable<User> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 	
 	
