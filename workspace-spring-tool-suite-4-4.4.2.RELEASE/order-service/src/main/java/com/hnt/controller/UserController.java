@@ -14,6 +14,7 @@ import java.util.Map;
 
 import javax.validation.Valid;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ import com.hnt.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
+@CrossOrigin
 @RestController // spring bean
 @RequestMapping ("/user")
 public class UserController {
@@ -46,7 +48,12 @@ public class UserController {
 		userService.save(user);
 		System.out.println(height);
 		System.out.println(age);
-		return null;
+		
+		MultiValueMap headers = new LinkedMultiValueMap<String, String>();
+		headers.add("headersformserve", "success");
+		ResponseEntity responseEntity = new ResponseEntity(user,headers, HttpStatus.CREATED);
+		
+		return responseEntity;
 		
 	}
 	
@@ -54,6 +61,7 @@ public class UserController {
 	Integer saveUser1(@RequestBody User user) {
 		userService.save(user);
 		System.out.println("second");
+		
 		return user.getId();
 	}
 	
