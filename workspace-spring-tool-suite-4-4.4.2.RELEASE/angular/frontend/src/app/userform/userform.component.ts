@@ -10,14 +10,18 @@ export class UserformComponent implements OnInit {
   user = {
     name:'Saikrishna',
     age:10
+    dob: new Date()
   }
+  users:any[]=[];
   constructor(public userService: UserService) { }
-
+  deleteUser(id:number){
+    const observable = this.userService.deleteUser(id);
+  }
   saveUser(){
-    console.log('clicked');
-    const promise = this.userService.save(this.user);
-    promise.subscribe((response:any)=>{
-      console.log(response);
+    this.user.dob = new Date(this.user.dob);
+    const observable = this.userService.save(this.user);
+    observable.subscribe((responseBody:any)=>{
+      console.log(responseBody);
     }),
     (error:any)=> {
       console.log(error);
@@ -26,6 +30,10 @@ export class UserformComponent implements OnInit {
   }
 
   ngOnInit(): void {
+   const observable = this.userService.getUsers();
+   observable.subcribe(usersFromServer:any)=>{
+     this.users=usersFromServer;
+   }
   }
 
 }
